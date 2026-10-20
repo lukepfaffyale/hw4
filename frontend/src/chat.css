@@ -1,0 +1,130 @@
+/* Problem 5: chat cards, notes, activity list. */
+
+.chat-note {
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-msg p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.chat-friend {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+}
+
+.chat-friend svg {
+  width: 26px;
+  height: 26px;
+}
+
+.chat-cards {
+  list-style: none;
+  margin: 0.6rem 0 0.3rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.chat-card {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.35rem 0.5rem;
+}
+
+.chat-card:hover,
+.chat-card:focus-visible {
+  border-color: var(--pink);
+}
+
+.chat-card img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.chat-card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.chat-card-price {
+  color: var(--pink);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.chat-showall {
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.activity-list {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.activity-list p {
+  margin: 0.1rem 0 0;
+  white-space: pre-wrap;
+}
+
+.activity-assistant {
+  color: var(--muted);
+}
+
+/* Problem 7: the assistant's matches rendered on the page itself */
+.chat-results {
+  margin: 2.5rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 80px;
+}
+
+.chat-results-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.chat-results-head h2 {
+  margin: 0;
+  flex-basis: 100%;
+}
+
+.chat-results-head p {
+  margin: 0;
+  flex: 1 1 240px;
+}
+
+.chat-results-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Problem 9: the assistant can hand the shopper a page of the site */
+.chat-goto {
+  margin-top: 0.5rem;
+  display: inline-block;
+}

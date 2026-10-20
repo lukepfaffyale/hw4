@@ -1,0 +1,279 @@
+/* The Halloween night scene: a block between the page content and the footer.
+   In the document flow, so it never overlaps text. All motion is gated on reduced-motion. */
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #05060d;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  pointer-events: none;
+}
+
+.scene-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .scene {
+    height: 150px;
+  }
+}
+
+/* small webs in the scene's top corners */
+.scene .web {
+  opacity: 0.55;
+}
+
+.scene .web-tl {
+  top: 0;
+  left: 0;
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.scene .web-tr {
+  top: 0;
+  right: 0;
+  transform: scale(-0.55, 0.55);
+  transform-origin: top right;
+}
+
+/* SVG parts that move */
+.crow,
+.cloud,
+.ghost,
+.fog,
+.bat-scene {
+  transform-box: view-box;
+}
+
+.wings {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.bolt {
+  filter: drop-shadow(0 0 4px #fff2b0) drop-shadow(0 0 12px #ffd76a);
+}
+
+.sky-flash,
+.bolt {
+  opacity: 0;
+}
+
+/* Soft glow behind the whole page during a strike: sits under the content, never over text. */
+.page-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 18% 95%, rgba(255, 236, 170, 0.32), transparent 55%);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .crow-1 {
+    animation: crow-fly 26s linear infinite;
+  }
+
+  .crow-2 {
+    animation: crow-fly 36s linear infinite;
+    animation-delay: -14s;
+  }
+
+  .crow-3 {
+    animation: crow-fly 31s linear infinite;
+    animation-delay: -22s;
+  }
+
+  .wings {
+    animation: crow-flap 0.45s ease-in-out infinite alternate;
+  }
+
+  .cloud-1 {
+    animation: cloud-drift 70s ease-in-out infinite alternate;
+  }
+
+  .cloud-2 {
+    animation: cloud-drift 90s ease-in-out infinite alternate-reverse;
+  }
+
+  .ghost {
+    animation: scene-ghost 44s linear infinite;
+  }
+
+  .fog {
+    animation: fog-drift 16s ease-in-out infinite alternate;
+  }
+
+  .window {
+    animation: window-flicker 5s ease-in-out infinite;
+  }
+
+  .bat-scene-1 {
+    animation: bat-scene 11s ease-in-out infinite;
+  }
+
+  .bat-scene-2 {
+    animation: bat-scene 13s ease-in-out infinite;
+    animation-delay: -5s;
+  }
+
+  .is-striking .bolt {
+    animation: bolt-flicker 1.8s ease-out both;
+  }
+
+  .is-striking .sky-flash {
+    animation: sky-flash 1.8s ease-out both;
+  }
+
+  .is-striking .page-glow {
+    animation: page-glow 1.8s ease-out both;
+  }
+}
+
+/* Reduced motion: the strike is shown still, with no flicker. */
+.is-calm .bolt {
+  opacity: 1;
+}
+
+.is-calm .sky-flash {
+  opacity: 0.1;
+}
+
+.is-calm .page-glow {
+  opacity: 0.5;
+}
+
+@keyframes crow-fly {
+  from {
+    transform: translateX(-40px);
+  }
+  to {
+    transform: translateX(1060px);
+  }
+}
+
+@keyframes crow-flap {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.2);
+  }
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(70px);
+  }
+}
+
+@keyframes scene-ghost {
+  from {
+    transform: translateX(-40px);
+  }
+  to {
+    transform: translateX(1050px);
+  }
+}
+
+@keyframes fog-drift {
+  from {
+    transform: translateX(-30px);
+  }
+  to {
+    transform: translateX(30px);
+  }
+}
+
+@keyframes window-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes bat-scene {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(50px, -16px);
+  }
+  60% {
+    transform: translate(110px, 6px);
+  }
+}
+
+/* Two brightenings in 1.8 s: about one per second, under the three-per-second limit. */
+@keyframes bolt-flicker {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 0.15;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sky-flash {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.3;
+  }
+  18% {
+    opacity: 0.05;
+  }
+  30% {
+    opacity: 0.24;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes page-glow {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}

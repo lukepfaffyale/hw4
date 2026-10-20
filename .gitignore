@@ -1,0 +1,36 @@
+# Assignment data pack: never committed (course rule)
+data/campus_customs.db
+data/products/
+/data/
+
+# Secrets: real keys live only in .env files
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Run output. output/audit_trail.json (the append-only agent trail) IS committed; the
+# per-node forensic log and the prompt-guard flags are not.
+output/*.jsonl
+output/prompt_injection_flags.json
+backend/output/
+
+# Working notes for the assistant that built this, not part of the submission
+RESUME.md
+
+# Editor / OS / agent settings
+.DS_Store
+.cursor/
+.claude/
+.vscode/

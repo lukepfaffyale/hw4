@@ -1,0 +1,2 @@
+# The pinned list lives at the hw4 root (course layout). Installing from here resolves it.
+-r ../requirements.txt

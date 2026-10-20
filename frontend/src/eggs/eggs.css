@@ -1,0 +1,224 @@
+/* Easter eggs: a peeking friend in a text-free spot, and the coupon dialog. */
+
+.egg {
+  pointer-events: auto;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  border-radius: 50%;
+}
+
+.egg svg {
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.55));
+}
+
+.egg:hover svg {
+  filter: drop-shadow(0 0 10px var(--pink));
+}
+
+/* in the Halloween scene, standing on the ground */
+.egg-scene {
+  position: absolute;
+  bottom: 10px;
+  z-index: 2;
+}
+
+/* at the end of the footer row */
+.egg-footer {
+  margin-left: auto;
+}
+
+/* peeking from the corner of a product photo */
+.product-media {
+  position: relative;
+}
+
+.egg-card {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+}
+
+.egg-card svg {
+  width: 44px;
+  height: 44px;
+}
+
+/* in the right gutter on wide screens only */
+.egg-gutter {
+  display: none;
+  position: fixed;
+  right: 44px;
+  z-index: 45;
+}
+
+@media (min-width: 1460px) {
+  .egg-gutter {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .egg svg {
+    animation: egg-bob 2.6s ease-in-out infinite;
+  }
+}
+
+@keyframes egg-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.egg-dialog {
+  position: fixed;
+  left: 50%;
+  bottom: 6rem;
+  transform: translateX(-50%);
+  z-index: 95;
+  width: min(380px, calc(100vw - 2rem));
+  background: var(--bg-elev);
+  border: 2px solid var(--pink);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.egg-dialog p {
+  margin: 0 0 0.6rem;
+}
+
+.egg-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.egg-code code {
+  display: inline-block;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.8rem;
+}
+
+.coupon-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.coupon-list code {
+  color: var(--pink);
+}
+
+/* Problem 9: a found friend stays put, and the collection tray on the Account page */
+.egg-found svg {
+  filter: drop-shadow(0 0 10px var(--ok));
+  animation: none;
+}
+
+.egg[disabled] {
+  cursor: default;
+}
+
+.egg-riddle {
+  font-style: italic;
+}
+
+.hunt-tray {
+  list-style: none;
+  margin: 0.8rem 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.8rem;
+}
+
+.hunt-slot {
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 0.7rem 0.4rem;
+  background: var(--bg);
+}
+
+.hunt-slot.found {
+  border-style: solid;
+  border-color: var(--pink);
+}
+
+.hunt-slot svg {
+  width: 64px;
+  height: 64px;
+}
+
+.hunt-slot .hunt-name {
+  display: block;
+  font-weight: 700;
+  margin-top: 0.3rem;
+}
+
+.hunt-slot .hint {
+  display: block;
+}
+
+.hunt-progress {
+  width: 100%;
+  height: 0.8rem;
+  accent-color: var(--pink);
+}
+
+.referral-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: center;
+}
+
+.referral-row code {
+  color: var(--pink);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+}
+
+/* 31 daily slots: smaller tiles, locked days dimmed */
+.hunt-tray {
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 0.6rem;
+}
+
+.hunt-slot svg {
+  width: 52px;
+  height: 52px;
+}
+
+.hunt-slot .hunt-day {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+.hunt-slot .hunt-name {
+  font-size: 0.85rem;
+}
+
+.hunt-slot.locked {
+  opacity: 0.6;
+}

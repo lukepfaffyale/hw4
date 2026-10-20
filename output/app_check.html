@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campus Customs app check (Problem 11)</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.55;
+        color: #1d1d1d;
+        background: #f6f7fa;
+      }
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 4rem;
+      }
+      h1 {
+        font-size: 2rem;
+        margin: 0 0 0.25rem;
+        color: #00356b;
+      }
+      h2 {
+        font-size: 1.35rem;
+        margin: 2.5rem 0 0.5rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #00356b;
+        color: #00356b;
+      }
+      .meta {
+        color: #555;
+        margin: 0 0 1.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.95rem;
+        background: #fff;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 0.5rem 0.6rem;
+        border: 1px solid #d9dde5;
+        vertical-align: top;
+      }
+      th {
+        background: #eef2f8;
+      }
+      figure {
+        margin: 1rem 0 0;
+        background: #fff;
+        border: 1px solid #d9dde5;
+        border-radius: 8px;
+        padding: 0.75rem;
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        border: 1px solid #e3e6ec;
+      }
+      figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.95rem;
+      }
+      .proves {
+        margin: 0.75rem 0 0;
+        padding: 0.6rem 0.9rem;
+        background: #eef7f1;
+        border-left: 4px solid #2e7d4f;
+        border-radius: 0 6px 6px 0;
+      }
+      code {
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 0.9em;
+        background: #eef2f8;
+        padding: 0.05rem 0.3rem;
+        border-radius: 4px;
+      }
+      .ok {
+        color: #2e7d4f;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Campus Customs app check</h1>
+      <p class="meta">
+        Problem 11, site testing. Run on 2026-10-19 against the live site at <code>http://localhost:5173</code> (React + Vite) with the
+        FastAPI back end on port 8000, the local course database <code>data/campus_customs.db</code>, and the assistant on
+        <code>gpt-5.6-luna</code> through Portkey. Signed in as the seeded test account. Every number quoted below was read
+        from the database with SQL right after the screenshot was taken.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Check</th>
+            <th>What it proves</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Chat checks inventory and price</td>
+            <td>The assistant reports the exact stock and price held in the database for the item on screen, nothing invented.</td>
+            <td class="ok">Pass</td>
+          </tr>
+          <tr>
+            <td>2. Cards appear after a category question</td>
+            <td>A "what hoodies do you have?" question returns structured matches that render as cards in the chat and on the Products page.</td>
+            <td class="ok">Pass</td>
+          </tr>
+          <tr>
+            <td>3. Usability feature from Problem 9: sold-out alternatives and a restock request</td>
+            <td>A sold-out size is no longer a dead end: the assistant shows items that have that size in stock and files a restock request the shopper can see on their Account page.</td>
+            <td class="ok">Pass</td>
+          </tr>
+          <tr>
+            <td>Bonus. Products filters and size chips (Problem 9)</td>
+            <td>Sort, price cap and in-stock-only live in the URL; every card shows which sizes are in stock.</td>
+            <td class="ok">Pass</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>1. Chat checking the inventory level of an item</h2>
+      <p>
+        On the item page for the Basic Hoodie Big Yale, the shopper asked how many are left in M and what it costs.
+      </p>
+      <figure>
+        <img src="app_check_images/inventory.jpg" alt="The Basic Hoodie Big Yale item page with its stock table next to the chat panel, where the assistant answers that the hoodie has only a few left in M, 5 available, and costs $68." />
+        <figcaption>
+          The bulldog answers "Basic Hoodie Big Yale has only a few left in M, 5 available. It costs $68." The stock table on the same
+          page shows M: Only a few left, 5 units, and the price $68 above it.
+        </figcaption>
+      </figure>
+      <p class="proves">
+        Database cross-check: <code>SELECT quantity FROM inventory WHERE product_id='basic-hoodie-big-yale' AND size='M'</code> returns 5;
+        <code>SELECT price FROM catalogue WHERE product_id='basic-hoodie-big-yale'</code> returns 68.0. The reply, the page and the
+        database agree. The audit trail for this turn records one <code>check_stock</code> call against the database and a 5.4 s answer,
+        so the number came from a tool, not from the model's memory.
+      </p>
+
+      <h2>2. Dynamic search-result cards after a category question</h2>
+      <p>On the Products page, the shopper asked "What hoodies do you have?".</p>
+      <figure>
+        <img src="app_check_images/hoodie-cards.jpg" alt="The Products page narrowed to eight hoodie cards with a notice reading Showing the 8 items the assistant found, and the chat panel listing the same hoodies with prices and a See all hoodies button." />
+        <figcaption>
+          The assistant lists eight hoodies with prices from its <code>search_products</code> tool, the same eight appear as cards inside the
+          chat, and the Products grid narrows to those eight ("Showing the 8 items the assistant found"). A "See all hoodies" page link
+          takes the shopper to the full category.
+        </figcaption>
+      </figure>
+      <p class="proves">
+        The page renders cards only from the product ids the agent returned in its structured reply, and the harness drops any id that did
+        not come from a tool result, so what the shopper reads matches what the page shows. The catalogue holds 27 hoodies; the tool caps a
+        single answer at eight and the link opens the rest.
+      </p>
+
+      <h2>3. Usability feature from Problem 9: sold-out alternatives and a restock request</h2>
+      <p>
+        On the item page for the Baseball Left Chest Crewneck, where XL is at zero in the database, the shopper asked "Do you have this in XL?".
+      </p>
+      <figure>
+        <img src="app_check_images/sold-out-alternatives.jpg" alt="The chat panel marks XL as sold out with a ghost, says the restock request is on the Account page, and lists five crewnecks available in XL; the same five appear as cards on the page under The assistant found these 5 items." />
+        <figcaption>
+          "👻 Sold out in XL for the Baseball Left Chest Crewneck." Then five crewnecks that have XL in stock right now, nearest in price, from
+          the <code>find_alternatives</code> tool, shown as cards on the page, plus a "View your restock requests" link because the shopper
+          had asked earlier in the conversation for XL to be reordered (the server keeps one open request per size, so it was not duplicated).
+        </figcaption>
+      </figure>
+      <p class="proves">
+        Database cross-check: <code>inventory</code> has quantity 0 for this product in XL, and each listed alternative has XL above zero. The
+        audit trail for the turn records three tool calls, <code>check_stock</code>, <code>find_alternatives</code> and
+        <code>request_restock</code> (which found the request already open and did not duplicate it), in 10.4 s. The restock row for this
+        shopper, product and size exists with status open in <code>restock_requests</code> and is visible under "My restock requests" on
+        the Account page; staff accounts see it in the queue on the Staff page.
+      </p>
+
+      <h2>Bonus. Products you can narrow, with sizes on every card (Problem 9)</h2>
+      <figure>
+        <img src="app_check_images/filters-chips.jpg" alt="The Products page filtered to hoodies, in stock only, sorted by price low to high, with the status line 27 products and size chips under each card, sold-out sizes struck through with a ghost." />
+        <figcaption>
+          The URL <code>/products?category=hoodie&amp;sort=price_asc&amp;in_stock=true</code> drives the filters: the status line reads
+          "27 products: hoodies, in stock, price: low to high", the first cards are the $45 hoodies, and the size chips show the sizes in
+          stock with sold-out sizes struck through (and a ghost in Halloween mode).
+        </figcaption>
+      </figure>
+
+      <h2>How the checks were run</h2>
+      <p>
+        Each question was typed into the live chat on the page shown and answered by the real model through Portkey (4 to 11 seconds per
+        turn). The numbers in the captions were then read from <code>data/campus_customs.db</code> with SQL, and the audit trail in
+        <code>backend/output/audit.jsonl</code> was read to confirm which tools ran. The automated suite (66 tests, run on a throwaway copy of
+        the database) covers the same contracts: cards only from tool results, stock and prices from the database, the restock rules, and the
+        filters.
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,225 @@
+/* Problem 4: sign-in, create-account, account page, haunted house and lightning. */
+
+.auth-page {
+  max-width: 640px;
+}
+
+.auth-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.auth-card h2 {
+  font-size: 1.15rem;
+}
+
+.auth-card.danger {
+  border-color: #7a2a3a;
+}
+
+.notice-warn {
+  border-left-color: var(--warn);
+  margin-top: 0.6rem;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.social-buttons {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--blue-light);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rules {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.rules li.ok {
+  color: var(--ok);
+}
+
+.rules li span[aria-hidden] {
+  display: inline-block;
+  width: 1.1em;
+}
+
+.generator {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem 0.6rem;
+  margin: 0;
+}
+
+.generator legend {
+  padding: 0 0.4rem;
+  font-weight: 700;
+}
+
+.generator-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.suggestion {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 1.05rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  color: var(--pink);
+  word-break: break-all;
+}
+
+.btn-danger {
+  background: #c62a4a;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #a51f3c;
+}
+
+.confirm-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.footer-note {
+  flex-basis: 100%;
+  color: var(--warn);
+}
+
+/* The haunted scene and lightning live in src/halloween/scene.css. On the Account page the
+   scene sits under the heading, inside the content column, as its own block. */
+.account-scene {
+  margin: 0 0 1.25rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.account-scene .scene {
+  border: 1px solid var(--border);
+}
+
+/* Problem 9: restock requests and the staff queue on the Account page */
+.request-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.request-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+}
+
+.request-status {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.request-status.open {
+  color: var(--warn);
+}
+
+.request-status.ordered {
+  color: var(--ok);
+}
+
+.request-status.cancelled {
+  color: var(--muted);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.admin-table ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.staff-badge {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: var(--warn);
+  color: #1a1200;
+  font-size: 0.8rem;
+  font-weight: 800;
+  vertical-align: middle;
+}
