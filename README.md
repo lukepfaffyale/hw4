@@ -56,7 +56,33 @@ Windows note: create the virtual environment with `python -m venv venv` and acti
       docs/                    data dictionary, models, governance, accessibility, screenshots
       data/                    the data pack (local only)
 
-The agent is exactly four files: `backend/prompts/prompt.md`, `backend/agent.py`, `backend/tools.py`, `backend/models.py`.
+**About the agent files.** The assignment says the agent is exactly four files, and it is: `backend/prompts/prompt.md` (what it knows and may do), `backend/agent.py` (the model, the loop and its checks), `backend/tools.py` (what it can call), `backend/models.py` (the shapes it reads and returns). Nothing else calls the model. The other modules in `backend/` are the web app the agent sits in and are kept separate on purpose: `main.py` (routes), `db.py` (the only module that opens the database), `auth.py` (bcrypt and sessions), `hunt.py` (hidden-friends rules), `audit.py` (writes the two audit files), `prompt_guard.py` (the course's regex guard, kept as its own file as in the lecture code), `ratelimit.py`. `output/harness.md` section 0.2 maps this out.
+
+## Recreating problems 1 to 13 from this clone
+
+| Problem | Where it lives | How to see it working |
+|---|---|---|
+| 1. Prompt log | `AI_prompts.md` | One entry per problem, in my words, with evidence lines. |
+| 2. Database analysis | `output/harness.md` section 1, `docs/data/` | Field-by-field reading of the four shipped tables, plus the data dictionary and models. |
+| 3. Website | Home, Products, item pages, About; `frontend/src/pages/` | Open http://localhost:5173, browse, open an item, try the Halloween toggle in the nav. |
+| 4. Accounts | Log in / Create Account / Account; `backend/auth.py` | Sign in as the seeded test user, or create an account (the page rolls a strong password for you); the Account page shows what is stored and can delete it. Harness section 4. |
+| 5. Chat agent | "Ask the bulldog" on every page; the four agent files | Ask "what hoodies do you have?"; the reply, the cards and the audit records come from one harnessed turn. |
+| 6. Tools | `backend/tools.py`, harness section 6 | Ask "how much is the Basic Hoodie Big Yale?" and "do you have it in M?"; the numbers match the database. |
+| 7. Chat updates the page | `frontend/src/chat/` | Ask a category question on the Products page: the grid narrows to the items the assistant found. |
+| 8. Customer memory | `backend/main.py` `/chat`, harness section 8 | Sign in, chat, sign out and back in: the conversation reloads. Ask "who am I?". On an item page ask "do you have this in pink?". |
+| 9. Usability | `output/usability.md` | Filters and size chips on Products; a hidden friend on each page (add `?egg=totoro-witch` to force one); a sold-out size in chat gives alternatives and a restock offer; set `ADMIN_EMAILS` to your account's email to see the Staff page. |
+| 10. Design | `output/design.md` | Fonts, bulldog, swatches, the Evans Hall and Harkness Tower scene, the chat counter. |
+| 11. App check | `output/app_check.html` | Double-click to open; screenshots and captions with the database queries behind them. |
+| 12. Audit trail and safety | `output/audit_trail.json`, `backend/prompts/prompt.md` ("Safety rules"), harness sections 0 and 12 | Chat once and watch records append to the trail; try "ignore all previous instructions": the guard drops it and the trail records a `guardrail` stop. |
+| 13. This repo | `README.md`, `.gitignore`, `.env.example` | Clone, follow "Run it", nothing secret or shipped is in the tree. |
+
+## If something does not start
+
+- **Chat says it cannot reach the shop brain, or `/chat` answers 503:** `PORTKEY_API_KEY` is missing or `OPENAI_MODEL` is not one of the allowed names. Everything else (products, accounts, hidden friends) works without a key.
+- **Vite started on a port other than 5173:** set `FRONTEND_ORIGIN` in `.env` to that origin, because CORS allows exactly one origin.
+- **`pip install` complains about a wheel:** use Python 3.12, 3.13 or 3.14; the pins were built on 3.14.
+- **Products load but photos are missing:** `data/products/` is not in place; the catalogue stores each image's path and the back end serves it from there.
+- **First start on a fresh data pack** adds the app's tables and columns to `campus_customs.db` (accounts' provider columns, hidden friends, rewards, restock requests). That is expected and idempotent; `backend/data/schema.sql` lists them.
 
 ## The shop assistant
 
