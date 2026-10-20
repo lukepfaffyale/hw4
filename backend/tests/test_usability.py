@@ -158,7 +158,7 @@ def test_finds_earn_coupon_then_upgrade_and_never_a_second_code(client):
     assert third["unlocked"] == ["new_find", "coupon"]
     assert third["coupon"]["discount_pct"] == 10 and third["coupon"]["scope"] == "one_item"
     code = third["coupon"]["code"]
-    assert code.startswith("CHIBI10-")  # day 3 is Zombie Chibi Totoro
+    assert code.startswith("PIP10-")  # day 3 is Zombie Pip
 
     for n, k in enumerate(keys[3:-1], start=4):
         mid = client.post("/me/hunt/finds", json={"season": season["key"], "character": k}, headers=h).json()

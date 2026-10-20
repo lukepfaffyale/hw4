@@ -54,7 +54,7 @@ Also added by the app: index `idx_chat_messages_user` on `chat_messages(user_id,
 |---|---|---|---|---|
 | `id` | INTEGER | no | PK autoincrement | |
 | `user_id` | INTEGER | no | FK -> `users.id`, UNIQUE | one coupon per shopper, enforced by the database |
-| `code` | TEXT | no | UNIQUE | `TOTORO10-XXXX` / `LABUBU10-XXXX` |
+| `code` | TEXT | no | UNIQUE | `BRAMBLE10-XXXX` / `SNAGGLE10-XXXX` |
 | `discount_pct` | INTEGER | no (default 10) | | |
 | `scope` | TEXT | no (default `one_item`) | | good for one item |
 | `found_character` | TEXT | no | | `totoro` or `labubu` |

@@ -2,7 +2,9 @@
 
 Rules in one place so the API, the agent's clue tool and the docs agree:
 
-- The cast is always four characters (Totoro, Labubu, a Soot Sprite and No-Face) in that season's
+- The cast is seven original creatures drawn for this shop (Bramble, Dusk, Pip, Whiskerline,
+  Snaggle, Cinder and Hush; fan-made nods to characters we love, credited in docs/governance.md)
+  in that season's
   trick-or-treat costumes. The Halloween set is 31 friends, one for each day of October: a new
   friend becomes findable each day (and stays findable until the set ends), so there is a reason
   to come back daily. Each friend has a home page where it always hides until found, and a riddle
@@ -69,14 +71,15 @@ class Season:
 # The cast and the costumes. The front end draws `<character>-<costume>`; anything it cannot
 # draw shows as a silhouette, so a new costume is added here and in characters.tsx together.
 CHARACTERS: tuple[tuple[str, str], ...] = (
-    ("totoro", "Totoro"),
-    ("chu", "Chu Totoro"),  # the middle, blue-grey sibling
-    ("chibi", "Chibi Totoro"),  # the tiny white one
-    ("catbus", "Catbus"),
-    ("labubu", "Labubu"),
-    ("soot", "Soot Sprite"),
-    ("noface", "No-Face"),
+    ("totoro", "Bramble"),
+    ("chu", "Dusk"),  # the middle, blue-grey sibling
+    ("chibi", "Pip"),  # the tiny white one
+    ("catbus", "Whiskerline"),
+    ("labubu", "Snaggle"),
+    ("soot", "Cinder"),
+    ("noface", "Hush"),
 )
+NAME_BY_KEY = dict(CHARACTERS)
 HALLOWEEN_COSTUMES: tuple[tuple[str, str, str], ...] = (
     ("witch", "Witch", "A pointed hat and a crooked broom."),
     ("ghost", "Ghost", "A sheet with two eye holes, going boo."),
@@ -126,10 +129,10 @@ SEASONS: tuple[Season, ...] = (
         ends=(11, 30),
         art_ready=False,
         friends=(
-            Friend("totoro-pilgrim", "Pilgrim Totoro", "/", "A buckled hat at the front door."),
-            Friend("labubu-turkey", "Turkey Labubu", "/products", "Tail feathers between the racks."),
-            Friend("soot-pie", "Pie Soot Sprite", "/about", "Something warm where the shop tells its story."),
-            Friend("noface-harvest", "Harvest No-Face", "/products/*", "A basket of leaves on one item's page."),
+            Friend("totoro-pilgrim", "Pilgrim Bramble", "/", "A buckled hat at the front door."),
+            Friend("labubu-turkey", "Turkey Snaggle", "/products", "Tail feathers between the racks."),
+            Friend("soot-pie", "Pie Cinder", "/about", "Something warm where the shop tells its story."),
+            Friend("noface-harvest", "Harvest Hush", "/products/*", "A basket of leaves on one item's page."),
         ),
     ),
     Season(
@@ -139,10 +142,10 @@ SEASONS: tuple[Season, ...] = (
         ends=(1, 6),
         art_ready=False,
         friends=(
-            Friend("totoro-santa", "Santa Totoro", "/", "A red hat at the front door."),
-            Friend("labubu-elf", "Elf Labubu", "/products", "Pointy ears between the racks."),
-            Friend("soot-snowman", "Snowman Soot Sprite", "/about", "A carrot nose where the shop tells its story."),
-            Friend("noface-reindeer", "Reindeer No-Face", "/products/*", "Antlers on one item's page."),
+            Friend("totoro-santa", "Santa Bramble", "/", "A red hat at the front door."),
+            Friend("labubu-elf", "Elf Snaggle", "/products", "Pointy ears between the racks."),
+            Friend("soot-snowman", "Snowman Cinder", "/about", "A carrot nose where the shop tells its story."),
+            Friend("noface-reindeer", "Reindeer Hush", "/products/*", "Antlers on one item's page."),
         ),
     ),
 )
@@ -273,7 +276,8 @@ def _tail(n: int = 4) -> str:
 
 
 def make_coupon_code(character: str) -> str:
-    word = character.split("-")[0].upper()[:8] or "FRIEND"
+    key = character.split("-")[0]
+    word = "".join(ch for ch in NAME_BY_KEY.get(key, "friend").upper() if ch.isalpha())[:8] or "FRIEND"
     return f"{word}{COUPON_PCT}-{_tail()}"
 
 

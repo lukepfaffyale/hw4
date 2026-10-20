@@ -28,7 +28,7 @@ Measured again after the build (live run on 2026-10-19, same audit log): "do you
 
 **What we added**
 
-- The two random Easter eggs became a collection. The cast is seven characters, Totoro, Chu Totoro, Chibi Totoro, Catbus, Labubu, a Soot Sprite and No-Face, dressed in trick-or-treat costumes: witch, ghost, zombie, skeleton, vampire, mummy, pumpkin and devil. The Halloween set is **31 friends, one for each day of October**: day 1 is Witch Totoro, day 2 Ghost Chu Totoro, day 3 Zombie Chibi Totoro, and so on, with character and costume both advancing each day so no pairing repeats. A friend becomes findable on its day and stays findable until the set ends (`HUNT_DATE` in `.env` pins the date for a demo). Costumes are drawn as overlays on each character in `frontend/src/eggs/characters.tsx`. Thanksgiving and Winter sets are defined in `backend/hunt.py` and listed as "coming up"; they switch on when their art is ready, so the site never shows a set it cannot draw.
+- The two random Easter eggs became a collection. The cast is seven characters, Bramble, Dusk, Pip, Whiskerline, Snaggle, Cinder and Hush, dressed in trick-or-treat costumes: witch, ghost, zombie, skeleton, vampire, mummy, pumpkin and devil. The Halloween set is **31 friends, one for each day of October**: day 1 is Witch Bramble, day 2 Ghost Dusk, day 3 Zombie Pip, and so on, with character and costume both advancing each day so no pairing repeats. A friend becomes findable on its day and stays findable until the set ends (`HUNT_DATE` in `.env` pins the date for a demo). Costumes are drawn as overlays on each character in `frontend/src/eggs/characters.tsx`. Thanksgiving and Winter sets are defined in `backend/hunt.py` and listed as "coming up"; they switch on when their art is ready, so the site never shows a set it cannot draw.
 - The chase: every friend has a home page (Home, Products, About, any item page, rotating day by day) where it always hides until found, in a text-free spot (footer end, Halloween scene, a product photo corner, or the wide-screen gutter). The earliest friend not yet found is the one that shows, so the chase runs in day order through the whole site; unfound friends also stray onto other pages about a third of the time. Each find's dialog gives the riddle for the next friend, and the chat assistant repeats the riddle on request (`hiding_clue` tool).
 - Rewards, all decided on the server (`POST /me/hunt/finds`), never in the browser:
   - **3 finds** in a season earn the shopper's single coupon, **10% off one item**.
@@ -47,7 +47,7 @@ Measured again after the build (live run on 2026-10-19, same audit log): "do you
 - Home page: the day's earliest unfound friend hides in the footer or the Halloween scene (add `?spot=footer` to pin the spot). Tap it, then follow the riddles.
 - Account page, "My hidden friends": the 31-day tray, rewards, referral code, coming sets. Nav badge "n/31".
 - Chat: "any clue where the friends are?" returns the next riddle with your count.
-- Screenshots: `p9-hidden-friend-guest.jpg` (a guest finds Witch Totoro, next clue shown), `p9-coupon-three-finds.jpg` (third find, coupon issued), `p10-account-tray.jpg` (the 31-day tray with locked days).
+- Screenshots: `p9-hidden-friend-guest.jpg` (a guest finds Witch Bramble, next clue shown), `p9-coupon-three-finds.jpg` (third find, coupon issued), `p10-account-tray.jpg` (the 31-day tray with locked days).
 
 ---
 

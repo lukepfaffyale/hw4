@@ -1,6 +1,6 @@
 // The hidden friends, drawn as inline SVG (no image files). Decorative; the button around them
-// carries the accessible name. The cast is seven characters (Totoro, Chu Totoro, Chibi Totoro,
-// Catbus, Labubu, a Soot Sprite and No-Face); each season dresses them in trick-or-treat costumes
+// carries the accessible name. The cast is seven original creatures (fan-made nods, credited in docs/governance.md): Bramble, Dusk, Pip,
+// Whiskerline, Snaggle, Cinder and Hush); each season dresses them in trick-or-treat costumes
 // drawn as overlays placed by each character's anchors. Keys come from the server as
 // `<character>-<costume>`; a pairing this build cannot draw shows as a silhouette.
 import type { ReactElement } from 'react'
@@ -143,7 +143,7 @@ function Frame({ costume, a, children }: { costume: Costume; a: Anchor; children
   )
 }
 
-function Totoro({ costume }: { costume: Costume }) {
+function Bramble({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.totoro}>
       <polygon points="18,20 22,3 30,20" fill="#7d8591" />
@@ -161,7 +161,7 @@ function Totoro({ costume }: { costume: Costume }) {
   )
 }
 
-function ChuTotoro({ costume }: { costume: Costume }) {
+function Dusk({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.chu}>
       <polygon points="22,27 25,12 31,27" fill="#5f6f94" />
@@ -179,7 +179,7 @@ function ChuTotoro({ costume }: { costume: Costume }) {
   )
 }
 
-function ChibiTotoro({ costume }: { costume: Costume }) {
+function Pip({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.chibi}>
       <polygon points="25,34 27,25 31,34" fill="#e8e8ea" />
@@ -192,7 +192,7 @@ function ChibiTotoro({ costume }: { costume: Costume }) {
   )
 }
 
-function Catbus({ costume }: { costume: Costume }) {
+function Whiskerline({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.catbus}>
       <polygon points="12,26 15,14 24,24" fill="#d97a2b" />
@@ -214,7 +214,7 @@ function Catbus({ costume }: { costume: Costume }) {
   )
 }
 
-function Labubu({ costume }: { costume: Costume }) {
+function Snaggle({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.labubu}>
       <ellipse cx="21" cy="15" rx="5.5" ry="14" fill="#d7b48c" transform="rotate(-14 21 15)" />
@@ -237,7 +237,7 @@ const SPIKES = Array.from({ length: 16 }, (_, i) => {
   return `${32 + Math.cos(a) * 25},${34 + Math.sin(a) * 25} ${32 + Math.cos(a + 0.2) * 18},${34 + Math.sin(a + 0.2) * 18}`
 }).join(' ')
 
-function SootSprite({ costume }: { costume: Costume }) {
+function Cinder({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.soot}>
       <polygon points={SPIKES} fill="#171717" />
@@ -250,7 +250,7 @@ function SootSprite({ costume }: { costume: Costume }) {
   )
 }
 
-function NoFace({ costume }: { costume: Costume }) {
+function Hush({ costume }: { costume: Costume }) {
   return (
     <Frame costume={costume} a={A.noface}>
       <path d="M20 62 Q16 36 24 18 Q32 8 40 18 Q48 36 44 62 Z" fill="#141418" />
@@ -291,13 +291,13 @@ function Locked() {
 }
 
 const BASE: Record<CharacterKey, (c: Costume) => ReactElement> = {
-  totoro: (c) => <Totoro costume={c} />,
-  chu: (c) => <ChuTotoro costume={c} />,
-  chibi: (c) => <ChibiTotoro costume={c} />,
-  catbus: (c) => <Catbus costume={c} />,
-  labubu: (c) => <Labubu costume={c} />,
-  soot: (c) => <SootSprite costume={c} />,
-  noface: (c) => <NoFace costume={c} />,
+  totoro: (c) => <Bramble costume={c} />,
+  chu: (c) => <Dusk costume={c} />,
+  chibi: (c) => <Pip costume={c} />,
+  catbus: (c) => <Whiskerline costume={c} />,
+  labubu: (c) => <Snaggle costume={c} />,
+  soot: (c) => <Cinder costume={c} />,
+  noface: (c) => <Hush costume={c} />,
 }
 
 export function CharacterArt({ character }: { character: string }) {

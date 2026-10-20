@@ -43,7 +43,7 @@ Why: a counter with a face gets more first questions than a form, and suggested 
 ## 6. Halloween, but Yale
 
 - The night scene's haunted house is now **Evans Hall**, the SOM building: the long glass front with its colonnade of fins, windows glowing orange, the plaza lit beneath. **Harkness Tower** stands behind it with a lit clock face and glowing lancet windows, under the same moon, crows and storm. The dead tree moved to the edge; graveyard, fence, pumpkins, fog and the bats stay.
-- The hidden friends are a **31-day Halloween set**: Totoro, Chu Totoro, Chibi Totoro, Catbus, Labubu, a Soot Sprite and No-Face in eight trick-or-treat costumes (witch, ghost, zombie, skeleton, vampire, mummy, pumpkin, devil), one new friend each day of October. Costumes are drawn as overlays on each character, so every pairing is a real drawing.
+- The hidden friends are a **31-day Halloween set**: Bramble, Dusk, Pip, Whiskerline, Snaggle, Cinder and Hush in eight trick-or-treat costumes (witch, ghost, zombie, skeleton, vampire, mummy, pumpkin, devil), one new friend each day of October. Costumes are drawn as overlays on each character, so every pairing is a real drawing.
 
 Why: the mood is still Halloween, but the landmarks say Yale and SOM, which is the whole point of the shop.
 

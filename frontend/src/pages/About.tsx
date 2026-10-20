@@ -56,6 +56,17 @@ export default function About() {
         </div>
       </section>
 
+      <section className="section" aria-labelledby="hidden-friends">
+        <h2 id="hidden-friends">About the hidden friends</h2>
+        <p className="muted">
+          Seven small creatures hide around the shop in seasonal costumes: Bramble, Dusk, Pip,
+          Whiskerline, Snaggle, Cinder and Hush. They are original drawings made for this class
+          project, fan-made nods to characters we love from Studio Ghibli's films and to Kasing
+          Lung's Labubu. Those characters and names belong to their owners. Nothing here is
+          official, licensed or for sale, and the reward codes are class-project codes only.
+        </p>
+      </section>
+
       <section className="section" aria-labelledby="visit">
         <h2 id="visit">Visit the store</h2>
         <p>
